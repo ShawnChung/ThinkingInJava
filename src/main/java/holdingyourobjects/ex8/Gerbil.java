@@ -1,15 +1,16 @@
-package holdingyourobjects.ex1;
+package holdingyourobjects.ex8;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Gerbil {
 	private int gerbilNumber;
-	public Gerbil(int gerbilNumber) {
+	Gerbil(int gerbilNumber) {
 		this.gerbilNumber = gerbilNumber;
 	}
 	
-	public void hop() {
+	void hop() {
 		System.out.println("Gerbil " + gerbilNumber);
 	}
 	
@@ -19,12 +20,12 @@ public class Gerbil {
 			gerbils.add(new Gerbil(i));
 		}
 		
-		for (Gerbil gerbil : gerbils) {
+		/*for (Gerbil gerbil : gerbils) {
 			gerbil.hop();
+		}*/
+		Iterator<Gerbil> iterator = gerbils.iterator();
+		while (iterator.hasNext()) {
+			iterator.next().hop();
 		}
-	}
-	
-	public String toString() {
-		return String.valueOf(gerbilNumber);
 	}
 }
