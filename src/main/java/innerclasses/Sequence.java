@@ -1,32 +1,31 @@
-package holdingyourobjects.ex3;
-
-
-import innerclasses.Selector;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+package innerclasses;
 
 public class Sequence {
-	private List items;
+	private Object[] items;
+	private int next = 0;
+	private int size;
 	
-	public Sequence() {
-		items = new ArrayList();
+	public Sequence(int size) {
+		this.size = size;
+		items = new Object[size];
 	}
 	
 	public void add(Object x) {
-		items.add(x);
+		if (next < items.length)  {
+			items[next] = x;
+			next++;
+		}
 	}
 	
 	private class ReverseSequenceSelector implements Selector{
-		private int i = items.size() - 1;
+		private int i = items.length - 1;
 		
 		public boolean end() {
 			return i < 0;
 		}
 
 		public Object current() {
-			return items.get(i);
+			return items[i];
 		}
 
 		public void next() {
@@ -39,15 +38,15 @@ public class Sequence {
 	private class SequenceSelector implements Selector {
 		private int i = 0;
 		public boolean end() {
-			return i == items.size();
+			return i == items.length;
 		}
 
 		public Object current() {
-			return items.get(i);
+			return items[i];
 		}
 
 		public void next() {
-			if (i < items.size())
+			if (i < items.length)
 				i++;
 		}
 		
@@ -58,7 +57,7 @@ public class Sequence {
 	}
 	
 	public int size() {
-		return items.size();
+		return this.size;
 	}
 	
 	public Selector selector() {
@@ -70,8 +69,8 @@ public class Sequence {
 	}
 	
 	public static void main(String[] args) {
-		Sequence sequence = new Sequence();
-		for (int i = 0; i < 10; i++) {
+		Sequence sequence = new Sequence(10);
+		for (int i = 0; i < sequence.size(); i++) {
 			sequence.add(Integer.toString(i));
 		}
 		Selector selector = sequence.selector();
@@ -86,4 +85,3 @@ public class Sequence {
 		}
 	}
 }
-

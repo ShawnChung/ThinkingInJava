@@ -1,21 +1,21 @@
-package holdingyourobjects.ex3;
+package generics.ex4;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import innerclasses.Selector;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-public class Sequence {
-	private List items;
+public class Sequence<T> {
+	private List<T> items;
+	private int next = 0;
 	
 	public Sequence() {
-		items = new ArrayList();
+		items = new ArrayList<T>();
 	}
 	
-	public void add(Object x) {
+	public void add(T x) {
 		items.add(x);
+		next++;
 	}
 	
 	private class ReverseSequenceSelector implements Selector{
@@ -25,7 +25,7 @@ public class Sequence {
 			return i < 0;
 		}
 
-		public Object current() {
+		public T current() {
 			return items.get(i);
 		}
 
@@ -42,7 +42,7 @@ public class Sequence {
 			return i == items.size();
 		}
 
-		public Object current() {
+		public T current() {
 			return items.get(i);
 		}
 
@@ -58,7 +58,7 @@ public class Sequence {
 	}
 	
 	public int size() {
-		return items.size();
+		return this.items.size();
 	}
 	
 	public Selector selector() {
@@ -70,7 +70,7 @@ public class Sequence {
 	}
 	
 	public static void main(String[] args) {
-		Sequence sequence = new Sequence();
+		Sequence<String> sequence = new Sequence<String>();
 		for (int i = 0; i < 10; i++) {
 			sequence.add(Integer.toString(i));
 		}
@@ -86,4 +86,3 @@ public class Sequence {
 		}
 	}
 }
-
