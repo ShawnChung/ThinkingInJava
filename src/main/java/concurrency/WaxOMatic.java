@@ -33,7 +33,6 @@ class WaxOn implements Runnable {
 		try {
 			while (!Thread.interrupted()) {
 				System.out.println("Wax On! ");
-
 				car.waitingForBuffing();
 				TimeUnit.MILLISECONDS.sleep(500);
 				car.waxed();
